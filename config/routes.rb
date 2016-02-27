@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  root to: 'main#index', as: :home
+
+  get ':region/:username', to: 'main#individual', as: :individual
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
