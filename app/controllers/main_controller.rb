@@ -8,6 +8,11 @@ class MainController < ApplicationController
   @@region_translator = {br: "BR1", eune: "EUN1", euw: "EUW1", kr: "KR", lan: "LA1", las: "LA2",
                          na: "NA1", oce: "OC1", ru: "RU", tr: "TR1"}
 
+  @@json_invalid_summoner = {valid: false, in_game: true}
+  @@json_in_game = {valid: true, in_game: true}
+  @@json_out_game = {valid: true, in_game: false}
+
+
   def index
   end
 
@@ -22,13 +27,13 @@ class MainController < ApplicationController
 
   def handle_json(region, username)
     user_id = get_user_id region, username
-    return render json: json_invalid_summoner unless user_id
+    return render json: @@json_invalid_summoner unless user_id
     key = next_key
     game_uri = URI::HTTPS.build(host: region + @@request_base,
                                 path: @@game_path + translate_region(region) + "/" + user_id,
                                 query: {api_key: key}.to_query)
     json = HTTParty.get(game_uri, verify: false)
-    render json: json["gameId"] ? json_in_game : json_out_game
+    render json: json["gameId"] ? @@json_in_game : @@json_out_game
   end
 
   def get_user_id(region, username)
@@ -39,18 +44,6 @@ class MainController < ApplicationController
     json = HTTParty.get(id_uri, verify: false)
     json[username.downcase]["id"].to_s if json[username.downcase]
 
-  end
-
-  def json_in_game
-    {valid: true, in_game: true}
-  end
-
-  def json_out_game
-    {valid: true, in_game: false}
-  end
-
-  def json_invalid_summoner
-    {valid: false, in_game: true}
   end
 
   def next_key
