@@ -40,13 +40,18 @@ class MainController < ApplicationController
   end
 
   def get_user_id(region, username)
+    db_username = Username.where(region: region, username: username)[0]
+    return db_username.id.to_s if db_username
+    puts "asking riot for region: #{region}, username: #{username}'s id"
     key = next_key
     id_uri = URI::HTTPS.build(host: region + @@request_base,
                               path: @@id_path1 + region + @@id_path2 + username,
                               query: {api_key: key}.to_query)
     json = HTTParty.get(id_uri, verify: false)
-    json[username.downcase]["id"].to_s if json[username.downcase]
-
+    if json[username.downcase]
+      Username.create(region: region, username: username, id: json[username.downcase]["id"].to_s)
+      json[username.downcase]["id"].to_s
+    end
   end
 
   def next_key
