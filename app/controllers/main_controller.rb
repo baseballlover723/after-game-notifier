@@ -1,6 +1,9 @@
 class MainController < ApplicationController
   @@keys = ENV["RIOT_API_KEYS"].split(" ")
   @@key_index = -1
+  @@key_sleep = 2.seconds
+  @@key_times = [].fill(Time.current - @@key_sleep, 0...@@keys.length)
+
   @@request_base = ".api.pvp.net"
   @@game_path = "/observer-mode/rest/consumer/getSpectatorGameInfo/"
   @@id_path1 = "/api/lol/"
@@ -48,7 +51,11 @@ class MainController < ApplicationController
 
   def next_key
     @@key_index += 1
-    @@key_index = 0 if @@key_index > @@keys.length
+    @@key_index = 0 if @@key_index >= @@keys.length
+    while (Time.current - @@key_times[@@key_index]) < @@key_sleep
+    end
+    #rate limit
+    @@key_times[@@key_index] = Time.current
     @@keys[@@key_index]
   end
 
