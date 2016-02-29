@@ -17,11 +17,15 @@ class MainController < ApplicationController
 
 
   def index
+    gon.baseRoute = home_path
   end
 
   def individual
     respond_to do |format|
-      format.html
+      format.html do
+        gon.username = params[:username]
+        gon.region = params[:region]
+      end
       format.json do
         handle_json(params[:region], params[:username])
       end
