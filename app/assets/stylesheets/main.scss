@@ -23,7 +23,8 @@
 
 body {
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+  @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
 }
 
 .donate-button {
@@ -36,7 +37,7 @@ body {
 
 
 #main-content {
-  @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
+  // @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
   flex: 1;
 }
 
@@ -62,15 +63,21 @@ body {
 
 #login {
     position: absolute;
-    left: 50%;
     top: 50%;
 
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
 }
 
+#summonerNameInput {
+	display: block;
+}
+
+a {
+	color: rgb(255,255,255);
+}
 
 
 //.top-bar {
