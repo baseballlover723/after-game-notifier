@@ -301,7 +301,7 @@ $dropdown-sizes: (
 
 $dropdownmenu-arrows: true;
 $dropdownmenu-arrow-color: $anchor-color;
-$dropdownmenu-min-width: 200px;
+$dropdownmenu-min-width: 100%;
 $dropdownmenu-background: $white;
 $dropdownmenu-border: 1px solid $medium-gray;
 
@@ -567,4 +567,4 @@ $topbar-link-background-hover: rgba(255,255,255,0);
 $topbar-link-background-color-hover: rgba(255,255,255,0);
 $topbar-link-background-active: rgba(255,255,255,0);
 
-$topbar-dropdown-padding-right: 115px;
+//$topbar-dropdown-padding-right: 115px;
