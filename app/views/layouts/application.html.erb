@@ -48,34 +48,39 @@
       </li>
     </ul>
   </div>
+</div>
 
 
 
 
-<form>
-  <div class="row" id="searchForm">
-    <div class="small-8 columns">
-      <div class="row">
-        <div class="small-4 columns"></div>
-        <div class="small-4 columns">
-          <div class="row collapse postfix-round">
-            <div class="small-9 columns">
-              <input type="text" placeholder="Summoner Name">
-            </div>
-            <div class="small-3 columns">
-              <a href="#" class="button postfix">Search</a>
-            </div>
+<div id="main-content">
+
+      <div class="twelve columns" text-center id='login'>
+        <div class="row collapse postfix-round">
+          <div class="small-1 medium-4 columns"></div>
+          <div class="small-5 medium-5 columns">
+            <input type="text" placeholder="Value">
+          </div>
+          <div class="small-6 medium-3 columns">
+            <a href="#" class="button postfix success">Go</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</form>
 
 
+
+
+
+
+
+  <%= yield %>
 </div>
 
-<%= yield %>
+<div id="footer">
+  <div id="foot" class="row">
+    <span class="small-9 small-centered columns">If you find any bugs with D or F?, please email them to leagueflashstats@gmail.com. D or F? is not endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</span>
+  </div>
+</div>
 
 </body>
 </html>
