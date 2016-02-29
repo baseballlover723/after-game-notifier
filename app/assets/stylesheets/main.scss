@@ -9,21 +9,22 @@
   background-size: cover;
 }
 
-* {
-  margin: 0;
-}
-
 body {
-  //height: 100%;
   display: flex;
   flex-direction: column
 }
 
+.donate-button {
+  //line-height: 45px;
+
+  .donate-image {
+    width: 130px;
+  }
+}
+
+
 #main-content {
   @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
-  //min-height: 100%;
-  //height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
-  //height: 100%;
   flex: 1;
 }
 
