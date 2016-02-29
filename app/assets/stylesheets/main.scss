@@ -2,8 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import "compass/css3";
-
 @mixin cover-background($img-uri, $background-top:"center", $background-left:"center", $background-attachment:"fixed") {
   background: url($img-uri) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment); 
   -webkit-background-size: cover;
@@ -18,4 +16,11 @@ body {
 
 .top-bar {
 	background-color: transparent;
+	a {
+		background-color: transparent;
+	}
+}
+
+.top-bar-right {
+	color: transparent;
 }
