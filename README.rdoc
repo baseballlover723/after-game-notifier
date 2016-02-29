@@ -5,7 +5,6 @@ setup instructions
     cd after_game_notifier
     bundle install
     bundle exec figaro install
-    rails g foundation:install
     rake db:setup
 
 This README would normally document whatever steps are necessary to get the
