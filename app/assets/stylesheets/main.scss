@@ -10,6 +10,14 @@
   background-size: cover;  
 }
 
+@mixin vertical-align($position: relative) {
+	position: $position;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(50%);
+}
+
 body { 
 	@include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
 }
@@ -21,11 +29,8 @@ body {
 		background-color: transparent;
 	}
 
-
 }
 
-
-
-a {
-	color: "#FFF";
+#searchForm {
+	@include vertical-align();
 }
