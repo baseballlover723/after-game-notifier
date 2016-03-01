@@ -47,7 +47,8 @@
 $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
-$primary-color: #2199e8;
+//$primary-color: #2199e8;
+$primary-color: black;
 $secondary-color: #777;
 $success-color: #3adb76;
 $warning-color: #ffae00;
@@ -546,11 +547,11 @@ $topbar-padding: .5rem;
 $topbar-title-spacing: 1rem;
 
 // Background color for the top bar
-$topbar-background: rgba(255,255,255,0);
+$topbar-background:  rgba(255, 255, 255, 0.0);
 // $topbar-bg: $topbar-bg-color;
 // Height and margin
 $topbar-height: rem-calc(70);
-// $topbar-margin-bottom: 0;
+ $topbar-margin-bottom: 0;
 // Controlling the styles for the title in the top bar
 // $topbar-title-weight: $font-weight-normal;
 // $topbar-title-font-size: rem-calc(17);
@@ -566,5 +567,3 @@ $topbar-link-background: rgba(255,255,255,0);
 $topbar-link-background-hover: rgba(255,255,255,0);
 $topbar-link-background-color-hover: rgba(255,255,255,0);
 $topbar-link-background-active: rgba(255,255,255,0);
-
-//$topbar-dropdown-padding-right: 115px;

@@ -10,11 +10,11 @@
 }
 
 @mixin vertical-align($position: relative) {
-	position: $position;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 * {
@@ -27,15 +27,17 @@ body {
   @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
 }
 
-.donate-button {
-  //line-height: 45px;
-
-  .donate-image {
+.top-bar {
+  a {
+    color: black;
+  }
+  .donate-button .donate-image {
     width: 130px;
   }
+  li {
+    line-height: 100%;
+  }
 }
-
-
 #main-content {
   // @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
   flex: 1;
@@ -60,25 +62,19 @@ body {
   margin-bottom: 7px;
 }
 
-
 #login {
-    position: absolute;
-    top: 50%;
+  position: absolute;
+  top: 50%;
 
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
 }
 
 #summonerNameInput {
-	display: block;
+  display: block;
 }
-
-a {
-	color: rgb(255,255,255);
-}
-
 
 //.top-bar {
 //	background-color: transparent;
