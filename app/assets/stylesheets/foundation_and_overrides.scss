@@ -49,3 +49,17 @@
 //
 // @include motion-ui-transitions;
 // @include motion-ui-animations;
+.top-bar {
+  background-color: rgba(255, 255, 255, 0.5);
+
+  .dropdown.menu:not(.vertical) .is-dropdown-submenu.first-sub {
+    top: 48px;
+  }
+
+  .is-dropdown-submenu {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .submenu li {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}

@@ -47,7 +47,8 @@
 $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
-$primary-color: #2199e8;
+//$primary-color: #2199e8;
+$primary-color: black;
 $secondary-color: #777;
 $success-color: #3adb76;
 $warning-color: #ffae00;
@@ -301,7 +302,7 @@ $dropdown-sizes: (
 
 $dropdownmenu-arrows: true;
 $dropdownmenu-arrow-color: $anchor-color;
-$dropdownmenu-min-width: 200px;
+$dropdownmenu-min-width: 100%;
 $dropdownmenu-background: $white;
 $dropdownmenu-border: 1px solid $medium-gray;
 
@@ -542,7 +543,27 @@ $tooltip-radius: $global-radius;
 // 35. Top Bar
 // -----------
 
-$topbar-padding: 0.5rem;
-$topbar-background: $light-gray;
+$topbar-padding: .5rem;
 $topbar-title-spacing: 1rem;
-$topbar-input-width: 200px;
+
+// Background color for the top bar
+$topbar-background:  rgba(255, 255, 255, 0.0);
+// $topbar-bg: $topbar-bg-color;
+// Height and margin
+$topbar-height: rem-calc(70);
+ $topbar-margin-bottom: 0;
+// Controlling the styles for the title in the top bar
+// $topbar-title-weight: $font-weight-normal;
+// $topbar-title-font-size: rem-calc(17);
+// Set the link colors and styles for top-level nav
+$topbar-link-color: $white;
+$topbar-link-color-hover: $white;
+$topbar-link-color-active: $white;
+$topbar-link-color-active-hover: $white;
+// $topbar-link-weight: $font-weight-normal;
+// $topbar-link-font-size: rem-calc(13);
+// $topbar-link-hover-lightness: -10%; // Darken by 10%
+$topbar-link-background: rgba(255,255,255,0);
+$topbar-link-background-hover: rgba(255,255,255,0);
+$topbar-link-background-color-hover: rgba(255,255,255,0);
+$topbar-link-background-active: rgba(255,255,255,0);
