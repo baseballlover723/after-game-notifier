@@ -62,28 +62,10 @@ body {
   margin-bottom: 7px;
 }
 
-#login {
-  position: absolute;
-  top: 50%;
-
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
+.full-width {
+  width: 100%;
 }
 
-#summonerNameInput {
-  display: block;
+.show-border {
+  border: 5px red solid;
 }
-
-//.top-bar {
-//	background-color: transparent;
-//
-//	ul {
-//		background-color: transparent;
-//	}
-//}
-
-//a {
-//	color: "#FFF";
-//}
