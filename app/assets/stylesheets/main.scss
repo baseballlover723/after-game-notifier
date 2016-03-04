@@ -24,7 +24,7 @@
 body {
   display: flex;
   flex-direction: column;
-  @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
+  @include cover-background('background.jpg');
 }
 
 .top-bar {
@@ -39,7 +39,7 @@ body {
   }
 }
 #main-content {
-  // @include cover-background('http://na.leagueoflegends.com/sites/default/files/upload/art/bg_event_poolpartyziggs_1920x1080.jpg');
+  // @include cover-background('background.jpg');
   flex: 1;
 }
 
