@@ -22,7 +22,10 @@ class MainController < ApplicationController
 
   def individual
     respond_to do |format|
-      format.html
+      format.html do
+        gon.individualPage = true
+        gon.currentPath = request.url
+      end
       format.json do
         handle_json(params[:region], params[:username])
       end
@@ -30,6 +33,7 @@ class MainController < ApplicationController
   end
 
   def handle_json(region, username)
+    # return render json: @@json_out_game
     user_id = get_user_id region, username
     return render json: @@json_invalid_summoner unless user_id
     key = next_key
@@ -60,6 +64,7 @@ class MainController < ApplicationController
     @@key_index = 0 if @@key_index >= @@keys.length
     while (Time.current - @@key_times[@@key_index]) < @@key_sleep
     end
+    puts "using key: #{@@keys[@@key_index]}"
     #rate limit
     @@key_times[@@key_index] = Time.current
     @@keys[@@key_index]
