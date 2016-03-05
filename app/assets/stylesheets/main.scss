@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @mixin cover-background($img-uri, $background-top:"center", $background-left:"center", $background-attachment:"fixed") {
-  background: url($img-uri) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
+  background: image-url($img-uri) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -24,7 +24,7 @@
 body {
   display: flex;
   flex-direction: column;
-  @include cover-background('background.jpg');
+  @include cover-background("background.jpg") ;
 }
 
 .top-bar {
