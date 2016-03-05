@@ -17,6 +17,7 @@ class MainController < ApplicationController
 
 
   def index
+    gon.basePath = home_path
   end
 
   def individual
