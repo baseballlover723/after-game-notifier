@@ -1,2 +1,14 @@
-<h1>Main#individual</h1>
-<p>Find me in app/views/main/individual.html.erb</p>
+<div class="row">
+  <!--TODO: make this in the center-->
+  <div class="small-12 medium-9 large-6 medium-centered columns show-border">
+    <% if @invalid_summoner %>
+        <h2>We couldn't find the summoner "<%= @username %>" on the <%= @region %> server &#9785;</h2>
+    <% elsif @out_game %>
+        <h2>"<%= @username %>" is not currently in a game on the <%= @region %> server</h2>
+    <% elsif @in_game %>
+        <h2><%= @username %> is in a game</h2>
+    <% end %>
+    <h1>Main#individual</h1>
+    <p>Find me in app/views/main/individual.html.erb</p>
+  </div>
+</div>

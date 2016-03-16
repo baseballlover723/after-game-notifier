@@ -1,3 +1,5 @@
+require 'uri'
+
 class MainController < ApplicationController
   @@keys = ENV["RIOT_API_KEYS"].split(" ")
   @@key_index = -1
@@ -23,11 +25,21 @@ class MainController < ApplicationController
   def individual
     respond_to do |format|
       format.html do
-        gon.individualPage = true
+        puts Username.all.as_json
+
         gon.currentPath = request.url
+        json = handle_json(params[:region], params[:username])
+        @invalid_summoner = json == @@json_invalid_summoner
+        @out_game = json == @@json_out_game
+        @in_game = json == @@json_in_game
+        gon.startRequestLoop = @in_game
+        puts Username.all.as_json
+
+        @region = params[:region]
+        @username = Username.where(region: @region, stripped_username: params[:username].gsub(/s+/, "").downcase)[0].try(:username) || params[:username]
       end
       format.json do
-        handle_json(params[:region], params[:username])
+        render json: handle_json(params[:region], params[:username])
       end
     end
   end
@@ -35,27 +47,27 @@ class MainController < ApplicationController
   def handle_json(region, username)
     # return render json: @@json_out_game
     user_id = get_user_id region, username
-    return render json: @@json_invalid_summoner unless user_id
+    return @@json_invalid_summoner unless user_id
     key = next_key
     game_uri = URI::HTTPS.build(host: region + @@request_base,
                                 path: @@game_path + translate_region(region) + "/" + user_id,
                                 query: {api_key: key}.to_query)
     json = HTTParty.get(game_uri, verify: false)
-    render json: json["gameId"] ? @@json_in_game : @@json_out_game
+    json["gameId"] ? @@json_in_game : @@json_out_game
   end
 
   def get_user_id(region, username)
-    db_username = Username.where(region: region, username: username)[0]
-    return db_username.id.to_s if db_username
+    db_username = Username.where(region: region, stripped_username: username.gsub(/\s+/, "").downcase)[0]
+    return db_username.user_id if db_username
     puts "asking riot for region: #{region}, username: #{username}'s id"
     key = next_key
     id_uri = URI::HTTPS.build(host: region + @@request_base,
-                              path: @@id_path1 + region + @@id_path2 + username,
+                              path: @@id_path1 + region + @@id_path2 + username.gsub(/\s+/, ""),
                               query: {api_key: key}.to_query)
     json = HTTParty.get(id_uri, verify: false)
-    if json[username.downcase]
-      Username.create(region: region, username: username, id: json[username.downcase]["id"].to_s)
-      json[username.downcase]["id"].to_s
+    if json[username.gsub(/\s+/, "").downcase]
+      Username.create(region: region, stripped_username: username.gsub(/\s+/, "").downcase, username: json[username.gsub(/\s+/, "").downcase]["name"], user_id: json[username.gsub(/\s+/, "").downcase]["id"])
+      json[username.gsub(/\s+/, "").downcase]["id"].to_s
     end
   end
 

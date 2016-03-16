@@ -17,7 +17,7 @@ $(document).ready(function () {
     );
     $("#enter-button").click(mainSubmit);
 
-    if (gon.individualPage) {
+    if (gon.startRequestLoop) {
         //indiviual page
         setTimeout(requestLoop, 0);
     }
