@@ -1,5 +1,3 @@
-require 'uri'
-
 class MainController < ApplicationController
   @@keys = ENV["RIOT_API_KEYS"].split(" ")
   @@key_index = -1
@@ -36,7 +34,7 @@ class MainController < ApplicationController
         puts Username.all.as_json
 
         @region = params[:region]
-        @username = Username.where(region: @region, stripped_username: params[:username].gsub(/s+/, "").downcase)[0].try(:username) || params[:username]
+        @username = Username.where(region: @region, stripped_username: params[:username].gsub(/\s+/, "").downcase)[0].try(:username) || params[:username]
       end
       format.json do
         render json: handle_json(params[:region], params[:username])
@@ -74,8 +72,7 @@ class MainController < ApplicationController
   def next_key
     @@key_index += 1
     @@key_index = 0 if @@key_index >= @@keys.length
-    while (Time.current - @@key_times[@@key_index]) < @@key_sleep
-    end
+    sleep @@key_sleep - (Time.current - @@key_times[@@key_index]) if (Time.current - @@key_times[@@key_index]) < @@key_sleep
     puts "using key: #{@@keys[@@key_index]}"
     #rate limit
     @@key_times[@@key_index] = Time.current

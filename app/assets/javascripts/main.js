@@ -1,5 +1,7 @@
-REQUEST_SLEEP_TIME = 2000; //ms
-COUNT = 0;
+var REQUEST_SLEEP_TIME = 2000; //ms
+var COUNT = 0;
+var time = 0;
+var timeInterval;
 $(document).ready(function () {
     // main page
     $("#username-input").keypress(function (eventData) {
@@ -20,6 +22,10 @@ $(document).ready(function () {
     if (gon.startRequestLoop) {
         //indiviual page
         setTimeout(requestLoop, 0);
+        timeInterval = setInterval(function() {
+            time++;
+            $("#time").text((time / 10.0).toFixed(1));
+        }, 100);
     }
 });
 
@@ -68,6 +74,7 @@ function requestLoop() {
             // Do something with the response here
             console.log(new Date().getTime());
             console.log(data);
+            time = 0;
             if (data.valid) {
                 if (data.in_game) {
                     return stillInGame();
@@ -89,5 +96,6 @@ function stillInGame() {
 }
 
 function outOfGame() {
+    clearInterval(timeInterval)
     alert("out of game");
 }

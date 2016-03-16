@@ -7,6 +7,7 @@
         <h2>"<%= @username %>" is not currently in a game on the <%= @region %> server</h2>
     <% elsif @in_game %>
         <h2><%= @username %> is in a game</h2>
+        <h2>Last checked: <span id="time">0.0</span> seconds ago</h2>
     <% end %>
     <h1>Main#individual</h1>
     <p>Find me in app/views/main/individual.html.erb</p>
