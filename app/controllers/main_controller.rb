@@ -1,12 +1,12 @@
 require 'queue_proxy'
 require 'thread'
 class MainController < ApplicationController
-  @@keys = Queue.new
+  @@keys = QueueProxy.new
   ENV["RIOT_API_KEYS"].split(" ").each do |key|
     @@keys << key
   end
   @@key_index = -1
-  @@key_sleep = 10.seconds
+  @@key_sleep = 2.seconds
   @@key_times = [].fill(Time.current - @@key_sleep, 0...@@keys.length)
 
   @@request_base = ".api.pvp.net"
@@ -29,7 +29,7 @@ class MainController < ApplicationController
     respond_to do |format|
       format.html do
         gon.currentPath = request.url
-        json = handle_json(params[:region], params[:username])
+        json = handle_json(params[:region], params[:username], true)
         @invalid_summoner = json == @@json_invalid_summoner
         @out_game = json == @@json_out_game
         @in_game = json == @@json_in_game
@@ -39,16 +39,16 @@ class MainController < ApplicationController
         @username = Username.where(region: @region, stripped_username: params[:username].gsub(/\s+/, "").downcase)[0].try(:username) || params[:username]
       end
       format.json do
-        render json: handle_json(params[:region], params[:username])
+        render json: handle_json(params[:region], params[:username], false)
       end
     end
   end
 
-  def handle_json(region, username)
+  def handle_json(region, username, fast)
     # return render json: @@json_out_game
     user_id = get_user_id region, username
     return @@json_invalid_summoner unless user_id
-    key = next_key
+    key = next_key fast
     game_uri = URI::HTTPS.build(host: region + @@request_base,
                                 path: @@game_path + translate_region(region) + "/" + user_id,
                                 query: {api_key: key}.to_query)
@@ -60,7 +60,7 @@ class MainController < ApplicationController
     db_username = Username.where(region: region, stripped_username: username.gsub(/\s+/, "").downcase)[0]
     return db_username.user_id if db_username
     puts "asking riot for region: #{region}, username: #{username}'s id"
-    key = next_key
+    key = next_key true
     id_uri = URI::HTTPS.build(host: region + @@request_base,
                               path: @@id_path1 + region + @@id_path2 + username.gsub(/\s+/, ""),
                               query: {api_key: key}.to_query)
@@ -71,8 +71,8 @@ class MainController < ApplicationController
     end
   end
 
-  def next_key
-    key = @@keys.pop
+  def next_key(fast)
+    key = fast ? @@keys.fast_pop : @@keys.slow_pop
     puts "popped #{key} off of the queue"
     Thread.new do
       sleep @@key_sleep

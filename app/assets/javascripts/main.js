@@ -74,6 +74,7 @@ function requestLoop() {
             // Do something with the response here
             console.log(new Date().getTime());
             console.log(data);
+            console.log(time / 10.0);
             time = 0;
             if (data.valid) {
                 if (data.in_game) {
@@ -96,6 +97,6 @@ function stillInGame() {
 }
 
 function outOfGame() {
-    clearInterval(timeInterval)
+    clearInterval(timeInterval);
     alert("out of game");
 }
