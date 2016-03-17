@@ -6,7 +6,7 @@ class MainController < ApplicationController
     @@keys << key
   end
   @@key_index = -1
-  @@key_sleep = 2.seconds
+  @@key_sleep = Integer(ENV["KEY_SLEEP"]).seconds || 4.seconds
   @@key_times = [].fill(Time.current - @@key_sleep, 0...@@keys.length)
 
   @@request_base = ".api.pvp.net"

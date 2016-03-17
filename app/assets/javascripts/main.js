@@ -85,7 +85,7 @@ function requestLoop() {
             }
         },
         error: function () {
-            alert("Ajax error!")
+            console.log("Ajax error!")
         }
     });
 }
