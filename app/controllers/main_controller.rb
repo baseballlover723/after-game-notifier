@@ -1,7 +1,12 @@
+require 'queue_proxy'
+require 'thread'
 class MainController < ApplicationController
-  @@keys = ENV["RIOT_API_KEYS"].split(" ")
+  @@keys = Queue.new
+  ENV["RIOT_API_KEYS"].split(" ").each do |key|
+    @@keys << key
+  end
   @@key_index = -1
-  @@key_sleep = 2.seconds
+  @@key_sleep = 10.seconds
   @@key_times = [].fill(Time.current - @@key_sleep, 0...@@keys.length)
 
   @@request_base = ".api.pvp.net"
@@ -23,15 +28,12 @@ class MainController < ApplicationController
   def individual
     respond_to do |format|
       format.html do
-        puts Username.all.as_json
-
         gon.currentPath = request.url
         json = handle_json(params[:region], params[:username])
         @invalid_summoner = json == @@json_invalid_summoner
         @out_game = json == @@json_out_game
         @in_game = json == @@json_in_game
         gon.startRequestLoop = @in_game
-        puts Username.all.as_json
 
         @region = params[:region]
         @username = Username.where(region: @region, stripped_username: params[:username].gsub(/\s+/, "").downcase)[0].try(:username) || params[:username]
@@ -70,13 +72,21 @@ class MainController < ApplicationController
   end
 
   def next_key
-    @@key_index += 1
-    @@key_index = 0 if @@key_index >= @@keys.length
-    sleep @@key_sleep - (Time.current - @@key_times[@@key_index]) if (Time.current - @@key_times[@@key_index]) < @@key_sleep
-    puts "using key: #{@@keys[@@key_index]}"
-    #rate limit
-    @@key_times[@@key_index] = Time.current
-    @@keys[@@key_index]
+    key = @@keys.pop
+    puts "popped #{key} off of the queue"
+    Thread.new do
+      sleep @@key_sleep
+      puts "readded key: #{key} to queue"
+      @@keys << key
+    end
+    key
+    # @@key_index += 1
+    # @@key_index = 0 if @@key_index >= @@keys.length
+    # sleep @@key_sleep - (Time.current - @@key_times[@@key_index]) if (Time.current - @@key_times[@@key_index]) < @@key_sleep
+    # puts "using key: #{@@keys[@@key_index]}"
+    # #rate limit
+    # @@key_times[@@key_index] = Time.current
+    # @@keys[@@key_index]
   end
 
   def translate_region(region)
