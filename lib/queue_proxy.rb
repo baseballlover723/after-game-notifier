@@ -5,18 +5,21 @@ class QueueProxy < Queue
   end
 
   def slow_pop(id)
+    count = @count
+    @last_slow = true
     result = pop
     # puts @count
-    while @count != 0
+    if @count != 0
       # puts "result: #{result}"
       # (num_waiting).times do
       #   puts "num waiting: #{num_waiting}"
-      #   puts "go again"
+      #   puts "go again #{id}"
       Thread.new do
         push result
       end
       # puts size
       result = pop
+      @count = 0
       # puts "result: #{result}"
       #   puts "slow pop #{id}"
       # end
@@ -27,7 +30,8 @@ class QueueProxy < Queue
   end
 
   def fast_pop
-    @count += 1
+    @count += 1 if @last_slow
+    @last_slow = false
     result = pop
     # puts "after fast"
     @count -= 1
@@ -37,9 +41,9 @@ end
 
 # TEST
 blah = QueueProxy.new
-test_numb = 20
+test_numb = 100
 Thread.new do
-  sleep 1
+  sleep 2
   (1..test_numb).each do |numb|
     blah << numb
     sleep 0.1
