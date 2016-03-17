@@ -24,29 +24,31 @@ class QueueProxy < Queue
 end
 
 # TEST
-blah = QueueProxy.new
-test_numb = 10
-Thread.new do
-  sleep 1
-  (1..test_numb).each do |numb|
-    blah << numb
-    sleep 0.1
-  end
-end
-arr = []
-test_numb.times do
-  arr << (rand > 0.5)
-end
-count = 0
-arr.each do |do_fast|
-  sleep 0.01
+def test
+  blah = QueueProxy.new
+  test_numb = 10
   Thread.new do
-    count += 1
-    if do_fast
-      puts "fast pop #{count}: #{blah.fast_pop}"
-    else
-      puts "normal #{count}: #{blah.slow_pop}"
+    sleep 1
+    (1..test_numb).each do |numb|
+      blah << numb
+      sleep 0.1
     end
   end
+  arr = []
+  test_numb.times do
+    arr << (rand > 0.5)
+  end
+  count = 0
+  arr.each do |do_fast|
+    sleep 0.01
+    Thread.new do
+      count += 1
+      if do_fast
+        puts "fast pop #{count}: #{blah.fast_pop}"
+      else
+        puts "normal #{count}: #{blah.slow_pop}"
+      end
+    end
+  end
+  puts "end"
 end
-puts "end"
