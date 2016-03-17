@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     if (gon.startRequestLoop) {
         //indiviual page
-        setTimeout(requestLoop, 0);
+        setTimeout(requestLoop, REQUEST_SLEEP_TIME);
         timeInterval = setInterval(function() {
             time++;
             $("#time").text((time / 10.0).toFixed(1));

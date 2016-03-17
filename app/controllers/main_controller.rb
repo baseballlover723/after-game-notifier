@@ -32,6 +32,7 @@ class MainController < ApplicationController
   end
 
   def individual
+    puts Thread.list.count
     respond_to do |format|
       format.html do
         gon.currentPath = request.url

@@ -3,7 +3,6 @@ require 'rails/commands/server'
 
 class Rails::Server
   def middleware
-    puts "I ran"
     middlewares = []
     middlewares << [Rails::Rack::Debugger] if options[:debugger]
     middlewares << [::Rack::ContentLength]

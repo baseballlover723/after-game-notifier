@@ -120,6 +120,7 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.2-x86-mingw32)
       mini_portile2 (~> 2.0.0.rc2)
+    puma (3.1.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -213,6 +214,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2 (>= 0.3.13, < 0.5)
+  puma
   quiet_assets
   rails (= 4.2.6)
   ruby-json
