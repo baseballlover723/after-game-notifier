@@ -1,4 +1,4 @@
-var REQUEST_SLEEP_TIME = 2000; //ms
+var REQUEST_SLEEP_TIME = 4000; //ms
 var COUNT = 0;
 var time = 0;
 var timeInterval;
