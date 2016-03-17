@@ -21,6 +21,12 @@ class MainController < ApplicationController
   @@json_out_game = {valid: true, in_game: false}
 
 
+  def foo
+    n = params[:n].to_i
+    sleep n
+    render :text => "I should have taken #{n} seconds!"
+  end
+
   def index
     gon.basePath = home_path
   end

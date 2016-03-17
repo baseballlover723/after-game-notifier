@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'main#index', as: :home
+  get 'foo', to: 'main#foo'
 
   get ':region/:username', to: 'main#individual', as: :individual
 
